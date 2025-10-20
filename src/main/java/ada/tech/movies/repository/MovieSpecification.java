@@ -18,6 +18,7 @@ public class MovieSpecification {
             String genre
     ) {
         return (root, query, builder) -> {
+
             // Cria um predicado inicial equivalente a "true"
             Predicate predicate = builder.conjunction();
 
@@ -26,7 +27,7 @@ public class MovieSpecification {
             }
 
             if (isNotNullOrEmpty(imageUrl)) {
-                predicate = builder.and(predicate, likeIgnoreCase(builder, root.get("imageUrl"), imageUrl));
+                predicate = builder.and(predicate, builder.equal(root.get("imageUrl"), imageUrl));
             }
 
             if (isNotNullOrEmpty(description)) {
@@ -34,7 +35,7 @@ public class MovieSpecification {
             }
 
             if (isNotNullOrEmpty(releaseDate)) {
-                predicate = builder.and(predicate, likeIgnoreCase(builder, root.get("releaseDate"), releaseDate));
+                predicate = builder.and(predicate, builder.equal(root.get("releaseDate"), releaseDate));
             }
 
             if (isNotNullOrEmpty(genre)) {
